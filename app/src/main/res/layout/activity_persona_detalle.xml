@@ -47,6 +47,6 @@
         android:layout_width="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_height="60dp"
-        android:text="BACK"
+        android:text="EDITAR DATOS"
         android:textColor="#FF000000" />
 </LinearLayout>

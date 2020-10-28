@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -21,6 +22,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -31,14 +33,25 @@ public class MainActivity extends AppCompatActivity{
     TextInputLayout input_email;
     TextInputLayout input_phone;
     TextInputLayout input_description;
-
-    TextView calendarTextView;
-    Calendar calendar;
+    DatePicker birth_picker;
+    /*TextView calendarTextView;
+    Calendar calendar;*/
     MaterialTextView full_name;
 
     public static void dismissDialog(){
         dialog.dismiss();
     }
+    public static java.util.Date getDateFromDatePicker(DatePicker datePicker){
+        int day = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth();
+        int year =  datePicker.getYear();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+
+        return calendar.getTime();
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -53,7 +66,8 @@ public class MainActivity extends AppCompatActivity{
         input_email = (TextInputLayout) findViewById(R.id.email);
         input_phone = (TextInputLayout) findViewById(R.id.phone);
         input_description = (TextInputLayout) findViewById(R.id.description);
-        calendarTextView = (TextView) findViewById(R.id.datepicker_text);
+        birth_picker = (DatePicker) findViewById(R.id.birth);
+        /*calendarTextView = (TextView) findViewById(R.id.datepicker_text);
 
         calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         calendar.clear();
@@ -68,13 +82,13 @@ public class MainActivity extends AppCompatActivity{
             public void onDismiss(DialogInterface dialogInterface) {
                 dialog.dismiss();
             }
-        });
+        });*/
         //Year = calendar.get(Calendar.YEAR) ;
         //Month = calendar.get(Calendar.MONTH);
         //Day = calendar.get(Calendar.DAY_OF_MONTH);
 
 
-        Button dialog_bt_date = (Button)findViewById(R.id.dialog_bt_date);
+ /*       Button dialog_bt_date = (Button)findViewById(R.id.dialog_bt_date);
         dialog_bt_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,7 +97,7 @@ public class MainActivity extends AppCompatActivity{
                 //AddCalendarEvent(findViewById(android.R.id.content).getRootView());
                 materialDatePicker.show(getSupportFragmentManager(), "DATE_PICKER");
             }
-        });
+        });*/
         Button next = (Button)findViewById(R.id.next);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +105,9 @@ public class MainActivity extends AppCompatActivity{
                 Intent myIntent = new Intent(MainActivity.this, PersonaDetalle.class);
 
                 myIntent.putExtra("full_name", input_full_name.getEditText().getText().toString());
-                myIntent.putExtra("birth", calendarTextView.getText());
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String dateString = sdf.format(getDateFromDatePicker(birth_picker));
+                myIntent.putExtra("birth", dateString);
                 myIntent.putExtra("phone", input_phone.getEditText().getText().toString());
                 myIntent.putExtra("email", input_email.getEditText().getText().toString());
                 myIntent.putExtra("description", input_description.getEditText().getText().toString());
@@ -100,12 +116,12 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+        /*materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
             @Override
             public void onPositiveButtonClick(Object selection) {
                 calendarTextView.setText(materialDatePicker.getHeaderText());
             }
-        });
+        });*/
 
     }//onCreate
     public void AddCalendarEvent(View view) {

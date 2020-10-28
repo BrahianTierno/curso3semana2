@@ -25,7 +25,7 @@
             android:textColorHint="@drawable/selector" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
+ <!--   <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -42,8 +42,16 @@
             android:paddingLeft="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </LinearLayout>
+    </LinearLayout>-->
+    <DatePicker
+        android:id="@+id/birth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner">
 
+    </DatePicker>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
